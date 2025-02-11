@@ -1,4 +1,6 @@
+using System;
 using UnityEngine;
+
 using Views.Game;
 using Models.Game;
 
@@ -6,13 +8,24 @@ namespace Controllers.Game
 {
     public class BallController : MonoBehaviour
     {
+        [SerializeField] 
+        private GameBallView _ballView;
+        
         private Rigidbody2D _rb;
         private BallModel _model;
+        
+        public event Action<GameObject, bool> OnTriggerDeadZoneAction;
+        public event Action<GameObject,int> OnTriggerPoinZoneAction; 
         
         private void Awake()
         {
             _model = new BallModel();
             _rb = GetComponent<Rigidbody2D>();
+        }
+
+        public void SetSkin(Sprite sprite)
+        {
+            _ballView.SetSprite(sprite);
         }
 
         private void OnTriggerEnter2D(Collider2D other)
@@ -29,7 +42,7 @@ namespace Controllers.Game
         {
             Vector2 forceVector = Vector2.zero;
 
-            forceVector.x = _rb.mass * _model.Direction * 100;
+            forceVector.x = _rb.mass * _model.Direction * 10;
             
             _rb.AddForce(forceVector, ForceMode2D.Impulse);
         }
@@ -43,6 +56,12 @@ namespace Controllers.Game
                     break;
                 case "StaticBall":
                     OnTriggerStaticBall(go);
+                    break;
+                case "PointZone":
+                    OnTriggerPointZone();
+                    break;
+                case "DeadZone":
+                   OnTriggerDeadZone();
                     break;
             }
         }
@@ -65,6 +84,18 @@ namespace Controllers.Game
             
             ballView.SetText(_model.Point);
             ballView.StartAnim();
+        }
+
+        private void OnTriggerPointZone()
+        {
+            _model.SetIsPointBall();
+            
+            OnTriggerPoinZoneAction?.Invoke(gameObject,_model.PointsCount);
+        }
+
+        private void OnTriggerDeadZone()
+        {
+            OnTriggerDeadZoneAction?.Invoke(gameObject, _model.IsPointBall);
         }
     }
 }

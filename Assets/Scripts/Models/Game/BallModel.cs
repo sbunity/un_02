@@ -6,11 +6,20 @@ namespace Models.Game
     public class BallModel
     {
         private int _pointsCount;
+        private bool _isPointBall;
+        
         private List<int> _allPoints;
         private List<GameObject> _triggerObjects;
         
         public int Point => GetRandomPoint();
         public int Direction => GetDirection();
+        public int PointsCount => _pointsCount;
+
+        public bool IsPointBall
+        {
+            get => _isPointBall;
+            private set => _isPointBall = value;
+        }
 
         public BallModel()
         {
@@ -32,6 +41,11 @@ namespace Models.Game
                 _triggerObjects.Add(go);
                 return true;
             }
+        }
+
+        public void SetIsPointBall()
+        {
+            IsPointBall = true;
         }
 
         private int GetDirection()
@@ -56,14 +70,12 @@ namespace Models.Game
         {
             _allPoints = new List<int>();
             
-            int startPoint = -25;
-            int endPoint = 25;
+            int startPoint = 25;
+            int endPoint = -25;
 
-            for (int i = startPoint; i < endPoint; i+=5)
+            for (int i = startPoint; i >= endPoint; i-=5)
             {
-                int point = i;
-                
-                _allPoints.Add(point);
+                _allPoints.Add(i);
             }
         }
     }

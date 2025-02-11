@@ -6,6 +6,9 @@ TagManager:
   tags:
   - StopPoint
   - StaticBall
+  - BottomWall
+  - PointZone
+  - DeadZone
   layers:
   - Default
   - TransparentFX
