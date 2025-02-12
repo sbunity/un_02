@@ -70,10 +70,10 @@ namespace Models.Game
         {
             _allPoints = new List<int>();
             
-            int startPoint = 25;
-            int endPoint = -25;
+            int startPoint = 5;
+            int endPoint = -5;
 
-            for (int i = startPoint; i >= endPoint; i-=5)
+            for (int i = startPoint; i >= endPoint; i--)
             {
                 _allPoints.Add(i);
             }

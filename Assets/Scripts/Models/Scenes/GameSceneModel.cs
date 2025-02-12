@@ -1,7 +1,7 @@
 using System;
 using Enums;
 using Models.Menu;
-using UnityEngine;
+using Models.Statistics;
 using Values;
 
 namespace Models.Scenes
@@ -48,8 +48,12 @@ namespace Models.Scenes
         {
             if (IsWin)
             {
-                Wallet.AddMoney(_winBalance);
+                Wallet.AddMoney(Reward);
             }
+
+            int points = IsWin ? Reward : -_bet;
+            
+            StatisticsModel.AddGame(points, _bet, _ballsCount, IsWin);
         }
 
         public void TryCompletedMissions()
