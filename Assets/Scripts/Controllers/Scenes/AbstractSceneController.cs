@@ -4,6 +4,8 @@ using UnityEngine.SceneManagement;
 
 using Views.General;
 using Enums;
+using SO;
+using Sounds;
 using Values;
 
 namespace Controllers.Scenes
@@ -12,20 +14,20 @@ namespace Controllers.Scenes
     {
         [SerializeField] 
         private BalanceUpdater _balanceView;
-        /*[SerializeField] 
+        [SerializeField] 
         private SoundsController _soundsController;
         [SerializeField]
         private SceneSounds _sceneSounds;
 
-        private MusicController _musicController;*/
+        private MusicController _musicController;
 
         private void OnEnable()
         {
             Wallet.OnChangedMoney += UpdateMoneyCountText;
             
-            //_musicController = GameObject.FindGameObjectWithTag("Music").GetComponent<MusicController>();
+            _musicController = GameObject.FindGameObjectWithTag("Music").GetComponent<MusicController>();
             
-            //_sceneSounds.SetAudioClip();
+            _sceneSounds.SetAudioClip();
             
             Initialize();
             Subscribe();
@@ -64,27 +66,27 @@ namespace Controllers.Scenes
 
         protected void SetClickClip()
         {
-            //PlaySound(AudioNames.ClickClip.ToString());
+            PlaySound(AudioNames.ClickClip);
         }
 
-        protected void PlaySound(string audioName)
-        {
-          // _soundsController.TryPlaySound(GetAudioClip(audioName));
+        protected void PlaySound(AudioNames name)
+        { 
+            _soundsController.TryPlaySound(GetAudioClip(name));
         }
         
         protected void PlayMusic()
         {
-            /*string clipName = SceneManager.GetActiveScene().name == NameScenes.Game.ToString()
-                ? AudioNames.GameClip.ToString()
-                : AudioNames.MenuClip.ToString();
+            AudioNames clipName = SceneManager.GetActiveScene().name == SceneType.Game.ToString()
+                ? AudioNames.GameClip
+                : AudioNames.MenuClip;
 
-            _musicController.TryPlayMusic(GetAudioClip(clipName));*/
+            _musicController.TryPlayMusic(GetAudioClip(clipName));
         }
         
-        /*private AudioClip GetAudioClip(string clipName)
+        private AudioClip GetAudioClip(AudioNames name)
         {
-            return _sceneSounds.GetAudioClipByName(clipName);
-        }*/
+            return _sceneSounds.GetAudioClipByName(name.ToString());
+        }
         
         private void UpdateMoneyCountText()
         {

@@ -9,6 +9,7 @@ TagManager:
   - BottomWall
   - PointZone
   - DeadZone
+  - Music
   layers:
   - Default
   - TransparentFX

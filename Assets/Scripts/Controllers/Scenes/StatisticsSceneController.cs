@@ -100,6 +100,8 @@ namespace Controllers.Scenes
 
         private void OnPressGraph(GraphView view)
         {
+            base.SetClickClip();
+            
             int index = _graphViews.IndexOf(view);
             
             _model.ChangeSelectedGraphIndex(index);

@@ -41,6 +41,7 @@ namespace Controllers.Scenes
             UpdateBet();
             SetStateBetBtns();
             UpdateWinBalance();
+            SetActiveStartBtn();
         }
 
         protected override void OnSceneStart()
@@ -92,6 +93,8 @@ namespace Controllers.Scenes
 
         private void OnPressStartBtn()
         {
+            base.SetClickClip();
+            
             ChangeState(GameState.Game);
             
             _model.SubtractBetFromBalance();
@@ -99,6 +102,8 @@ namespace Controllers.Scenes
 
         private void OnPressBetBtn(int direction)
         {
+            base.SetClickClip();
+            
             _model.ChangeBet(direction);
             
             SetStateBetBtns();
@@ -107,6 +112,8 @@ namespace Controllers.Scenes
 
         private void OnAddPoints(int points)
         {
+            base.PlaySound(AudioNames.GoalClip);
+            
             _model.AddPoints(points);
             
             UpdateWinBalance();
@@ -121,6 +128,8 @@ namespace Controllers.Scenes
 
         private void OnPressPauseBtn()
         {
+            base.SetClickClip();
+            
             Time.timeScale = 0;
 
             _pauseBtn.interactable = false;
@@ -130,6 +139,8 @@ namespace Controllers.Scenes
 
         private void OnMissedBall(int value)
         {
+            base.PlaySound(AudioNames.HitClip);
+            
             UpdateMissedBallsView(value);
         }
 
@@ -150,6 +161,8 @@ namespace Controllers.Scenes
 
         private void OnReceiveAnswerPausePanel(int answer)
         {
+            base.SetClickClip();
+            
             _pausePanel.PressBtnAction -= OnReceiveAnswerPausePanel;
             _pausePanel.gameObject.SetActive(false);
             
@@ -178,6 +191,7 @@ namespace Controllers.Scenes
                     base.LoadScene(scene);
                     break;
                 case 1:
+                    base.SetClickClip();
                     _confirmationPanel.gameObject.SetActive(false);
                     OpenPausePanel();
                     break;
@@ -186,6 +200,10 @@ namespace Controllers.Scenes
 
         private void OpenResultPanel()
         {
+            AudioNames name = _model.IsWin ? AudioNames.WinClip : AudioNames.LoseClip;
+            
+            base.PlaySound(name);
+            
             _resultPanel.SetDescription(_model.IsWin);
             _resultPanel.SetReward(_model.Reward);
             _resultPanel.SetScore(_model.Points);
@@ -194,6 +212,11 @@ namespace Controllers.Scenes
             
             _model.TryAddRewardToWallet();
             _model.TryCompletedMissions();
+        }
+
+        public void SetActiveStartBtn()
+        {
+            _bottomUIView.SetActiveStartBtn(_model.IsStartBtnActive);
         }
 
         private void OpenPausePanel()

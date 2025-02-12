@@ -35,6 +35,11 @@ namespace Views.Game
             _betView.OnPressChangeBetBtn -= OnPressBetBtn;
         }
 
+        public void SetActiveStartBtn(bool value)
+        {
+            _startBtn.interactable = value;
+        }
+
         public void SetState(GameState state)
         {
             switch (state)

@@ -95,12 +95,16 @@ namespace Controllers.Scenes
 
         private void OnPressPrivacyBtn()
         {
+            base.SetClickClip();
+            
             CloseMainPanel();
             OpenPrivacyPanel();
         }
 
         private void OnPressTermsBtn()
         {
+            base.SetClickClip();
+            
             CloseMainPanel();
             OpenTermsPanel();
         }
@@ -112,6 +116,8 @@ namespace Controllers.Scenes
 
         private void OnPressClearDataBtn()
         {
+            base.SetClickClip();
+            
             OpenConfirmationPanel();
         }
 
@@ -157,6 +163,8 @@ namespace Controllers.Scenes
 
         private void OnReceiveAnswerPrivacyPanel(int answer)
         {
+            base.SetClickClip();
+            
             _privacyPanel.PressBtnAction -= OnReceiveAnswerPrivacyPanel;
             _privacyPanel.gameObject.SetActive(false);
             OpenMainPanel();
@@ -164,6 +172,8 @@ namespace Controllers.Scenes
 
         private void OnReceiveAnswerTermsPanel(int answer)
         {
+            base.SetClickClip();
+            
             _termsPanel.PressBtnAction -= OnReceiveAnswerTermsPanel;
             _termsPanel.gameObject.SetActive(false);
             OpenMainPanel();
@@ -171,6 +181,8 @@ namespace Controllers.Scenes
 
         private void OnReceiveAnswerConfirmationPanel(int answer)
         {
+            base.SetClickClip();
+            
             _confirmationPanel.PressBtnAction -= OnReceiveAnswerConfirmationPanel;
             _confirmationPanel.gameObject.SetActive(false);
 

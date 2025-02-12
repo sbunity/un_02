@@ -19,9 +19,11 @@ namespace Models.Scenes
         public bool IsPlusBtnActive => _bet < MAX_BET && _bet +1 <= Wallet.Money;
         public bool IsMinusBtnActive => _bet > MIN_BET;
 
+        public bool IsWin => _winBalance > 0;
+        public bool IsStartBtnActive => Wallet.Money >= 1;
+        
         public int Bet => _bet;
         public int Points => _winBalance;
-        public bool IsWin => _winBalance > 0;
         public int Reward => _winBalance > 0 ?  _winBalance * _bet : 0;
 
         public GameSceneModel()

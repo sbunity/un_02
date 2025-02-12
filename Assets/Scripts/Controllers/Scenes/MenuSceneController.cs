@@ -152,6 +152,8 @@ namespace Controllers.Scenes
 
         private void OpenRewardPanel(MissionType type)
         {
+            base.PlaySound(AudioNames.WinClip);
+            
             int reward = _model.GetRewardMission(type);
             
             _rewardPanel.UpdateReward(reward);
@@ -161,6 +163,8 @@ namespace Controllers.Scenes
 
         private void OnReceiveAnswerRewardPanel(MissionType type)
         {
+            base.SetClickClip();
+            
             _rewardPanel.PressBtnAction = null;
             
             _rewardPanel.gameObject.SetActive(false);
