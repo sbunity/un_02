@@ -1,0 +1,25 @@
+#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
+
+extern "C" {
+    void _ShareText(const char* message, const char* appURL) {
+        NSString *text = [NSString stringWithUTF8String:message];
+        NSString *appURLString = [NSString stringWithUTF8String:appURL];
+        NSURL *urlToShare = [NSURL URLWithString:appURLString];
+
+        // Create an array with the message and the app URL
+        NSArray *items = @[text, urlToShare];
+
+        UIActivityViewController *activityVC = [[UIActivityViewController alloc] initWithActivityItems:items applicationActivities:nil];
+
+        UIViewController *rootVC = [UIApplication sharedApplication].keyWindow.rootViewController;
+
+        // Handle popover presentation for iPad
+        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+            activityVC.popoverPresentationController.sourceView = rootVC.view;
+            activityVC.popoverPresentationController.sourceRect = CGRectMake(rootVC.view.bounds.size.width/2, rootVC.view.bounds.size.height/2, 1, 1);
+        }
+
+        [rootVC presentViewController:activityVC animated:YES completion:nil];
+    }
+}
