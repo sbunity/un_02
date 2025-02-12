@@ -158,11 +158,9 @@ namespace Models.Scenes
             {
                 DateTime date = DateTime.Parse(days[i]);
 
-                if (date == DateTime.UtcNow.Date)
+                if (date == DateTime.Now.Date)
                 {
                     _currentDayIndex = i;
-                    
-                    Debug.Log(i);
                 }
             }
         }

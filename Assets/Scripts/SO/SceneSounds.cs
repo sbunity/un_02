@@ -23,8 +23,6 @@ namespace SO
             
             for (int i = 0; i < _audioClips.Count; i++)
             {
-                Debug.Log(Enum.GetValues(typeof(AudioNames)).GetValue(i).ToString());
-                
                 AudioClips.Add(Enum.GetValues(typeof(AudioNames)).GetValue(i).ToString(), _audioClips[(int)Enum.GetValues(typeof(AudioNames)).GetValue(i)]);
             }
         }
