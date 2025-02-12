@@ -193,6 +193,7 @@ namespace Controllers.Scenes
             _resultPanel.PressBtnAction += OnReceiveAnswerResultPanel;
             
             _model.TryAddRewardToWallet();
+            _model.TryCompletedMissions();
         }
 
         private void OpenPausePanel()
