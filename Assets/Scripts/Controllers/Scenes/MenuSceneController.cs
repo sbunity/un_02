@@ -79,8 +79,6 @@ namespace Controllers.Scenes
 
             if (_model.FirstMissionState == MissionState.Time)
             {
-                Debug.Log(_model.FirstMissionTimeSpan);
-                
                 _missionViews[0].UpdateTimer(_model.FirstMissionTimeSpan);
             }
             else

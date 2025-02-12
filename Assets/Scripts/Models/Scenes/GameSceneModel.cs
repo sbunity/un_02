@@ -63,8 +63,6 @@ namespace Models.Scenes
             {
                 MissionsModel.CompleteMission(MissionType.Second);
             }
-            
-            Debug.Log(DateTime.UtcNow.Subtract(_startTime).Minutes);
 
             if (DateTime.UtcNow.Subtract(_startTime).Minutes >= 3 &&
                 MissionsModel.GetMissionState(MissionType.Third) == MissionState.Default)
